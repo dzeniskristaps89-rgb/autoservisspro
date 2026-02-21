@@ -30,13 +30,16 @@ export default function Home() {
   async function submitBooking(e: React.FormEvent) {
     e.preventDefault();
     setBookingStatus("loading");
+
     try {
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(booking),
       });
+
       if (!res.ok) throw new Error("Booking request failed");
+
       setBookingStatus("success");
       setBooking({
         name: "",
@@ -55,19 +58,25 @@ export default function Home() {
   async function submitContact(e: React.FormEvent) {
     e.preventDefault();
     setContactStatus("loading");
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contact),
       });
+
       if (!res.ok) throw new Error("Contact request failed");
+
       setContactStatus("success");
       setContact({ name: "", contact: "", message: "" });
     } catch {
       setContactStatus("error");
     }
   }
+
+  const inputBase =
+    "w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100">
@@ -198,7 +207,7 @@ export default function Home() {
             >
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   placeholder="Vārds"
                   value={booking.name}
                   onChange={(e) =>
@@ -207,7 +216,7 @@ export default function Home() {
                   required
                 />
                 <input
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   placeholder="Telefons"
                   value={booking.phone}
                   onChange={(e) =>
@@ -219,7 +228,7 @@ export default function Home() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   placeholder="Auto marka/modelis"
                   value={booking.car}
                   onChange={(e) =>
@@ -228,7 +237,7 @@ export default function Home() {
                   required
                 />
                 <input
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   placeholder="Numura zīme (opc.)"
                   value={booking.plate}
                   onChange={(e) =>
@@ -240,7 +249,7 @@ export default function Home() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <input
                   type="date"
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   value={booking.date}
                   onChange={(e) =>
                     setBooking({ ...booking, date: e.target.value })
@@ -249,7 +258,7 @@ export default function Home() {
                 />
                 <input
                   type="time"
-                  className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className={inputBase}
                   value={booking.time}
                   onChange={(e) =>
                     setBooking({ ...booking, time: e.target.value })
@@ -259,7 +268,7 @@ export default function Home() {
               </div>
 
               <textarea
-                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px]"
+                className={`${inputBase} min-h-[120px]`}
                 placeholder="Kas jādara? (piem. eļļas maiņa, bremzes, diagnostika)"
                 value={booking.message}
                 onChange={(e) =>
@@ -322,7 +331,7 @@ export default function Home() {
               className="bg-gray-900 text-white rounded-xl p-6 shadow-lg border border-gray-800 space-y-4"
             >
               <input
-                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputBase}
                 placeholder="Vārds"
                 value={contact.name}
                 onChange={(e) =>
@@ -331,7 +340,7 @@ export default function Home() {
                 required
               />
               <input
-                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputBase}
                 placeholder="Telefons vai e-pasts"
                 value={contact.contact}
                 onChange={(e) =>
@@ -340,7 +349,7 @@ export default function Home() {
                 required
               />
               <textarea
-                className="w-full bg-gray-950 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px]"
+                className={`${inputBase} min-h-[120px]`}
                 placeholder="Ziņa"
                 value={contact.message}
                 onChange={(e) =>
