@@ -1,0 +1,9 @@
+export async function POST(req: Request) {
+  try {
+    const data = await req.json();
+    console.log("CONTACT:", data);
+    return Response.json({ ok: true });
+  } catch {
+    return Response.json({ ok: false }, { status: 400 });
+  }
+}
